@@ -1,0 +1,6 @@
+target/
+.env
+.env.*
+!.env.example
+crates/openai-api-gen
+openapitools.json
