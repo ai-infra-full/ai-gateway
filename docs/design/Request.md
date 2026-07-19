@@ -4,8 +4,8 @@
 
 ## 协议适配与模型接入（接入层）
 
-* 多模型统一抽象（Unified API）： * 将所有上游模型（OpenAI, Claude, Gemini, DeepSeek, 百度文心等）统一抽象为标准格式（通常对齐 OpenAI 规范）。
-    * 协议转换引擎（Protocol Translation）： 客户端用一套通用JSON格式请求，网关自动将其转换为目标厂商的特有Payload。
+* 多模型统一抽象（Unified API）：
+    * 协议转换引擎（Protocol Translation）：客户端用一套通用JSON格式请求(OpenAI规范)，网关自动将其转换为目标厂商的特有协议请求。
 
 * 多模态与流式传输支持：
     * 原生支持 Server-Sent Events (SSE) 流式响应（Stream），并具备流式数据的拦截与解析能力。
@@ -23,7 +23,7 @@
     * 动态权重与轮询： 跨不同供应商或混合云（公有云 API + 私有化部署大模型）进行流量负载均衡。
 * 弹性容错机制（Failover & Resiliency）：
     * 自动降级（Fallback）： 当调用 GPT-4o 报错或触发 429 Too Many Requests 时，网关在毫秒级内自动无缝切换到 Claude 3.5 或 DeepSeek，对前端用户完全透明。
-    * 智能重试与熔断： 针对特定的 LLM 错误码（如超时、服务过载）实施指数退避重试；当某模型彻底挂掉时自动熔断。
+    * 智能重试与熔断： 针对特定的LLM错误码（如超时、服务过载）实施指数退避重试；当某模型彻底挂掉时自动熔断。
 
 ## 全链路安全与合规（安全层）
 
