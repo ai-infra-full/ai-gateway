@@ -19,6 +19,6 @@ tokio = { version = "1.53.0", features = [
     "net",
     "signal",
 ] }
-tower = "0.5"
+tower = { version = "0.5", features = ["util"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
