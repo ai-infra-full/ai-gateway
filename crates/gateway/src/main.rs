@@ -28,16 +28,12 @@ async fn main() -> Result<()> {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    let openai_router = Router::new().route("/", post(handler));
-    let gemini_router = Router::new().route("/", post(handler));
-    let anthropic_router = Router::new().route("/", post(handler));
-
     let app = Router::new()
         .route("/", get(root))
         .route("/health", get(health))
-        .nest("/openai", openai_router)
-        .nest("/gemini", gemini_router)
-        .nest("/anthropic", anthropic_router)
+        .route("/openai/{*path}", post(handler))
+        .route("/gemini/{*path}", post(handler))
+        .route("/anthropic/{*path}", post(handler))
         .with_state(GatewayService::default());
 
     tracing::debug!(?app, "registered routes");
@@ -63,7 +59,7 @@ async fn root() -> &'static str {
 }
 
 async fn health() -> &'static str {
-    "ok"
+    "OK"
 }
 
 async fn handler(State(gateway): State<GatewayService>, request: Request) -> Response {

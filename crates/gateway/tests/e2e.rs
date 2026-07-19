@@ -28,7 +28,11 @@ fn provider_routes_echo_request_body() {
 
     wait_until_ready(&mut gateway.0, address);
 
-    for path in ["/openai", "/gemini", "/anthropic"] {
+    for path in [
+        "/openai/v1/chat/completions",
+        "/gemini/v1beta/models/gemini-pro:generateContent",
+        "/anthropic/v1/messages",
+    ] {
         assert_echo(address, path, "hello gateway");
     }
 }
